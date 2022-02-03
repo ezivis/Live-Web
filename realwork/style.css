@@ -1,0 +1,67 @@
+.head{
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.Aristotle{
+    position: fixed;
+    top: 80%;
+    left: 30%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.image{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.image:hover{
+    transform: scale(1.5);
+}
+
+.wifi{
+    position: fixed;
+    top: 50%;
+    left: 30%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.bubble{
+    width: 150px;
+    height: 120px;
+    position: fixed;
+    top: 20%;
+    left: 60%;
+    margin-top: -50px;
+    margin-left: -100px;
+    transform: scale(2);
+}
+
+.bubblewifi{
+    width: 150px;
+    height: 120px;
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    margin-top: -50px;
+    margin-left: -100px;
+    transform: scale(2);
+}
+
+.vid{
+    width: 160px;
+    height: 120px;
+    position: fixed;
+    top: 18%;
+    left: 60%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
