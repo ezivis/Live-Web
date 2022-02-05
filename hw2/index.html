@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+		
+			var socket = io.connect();
+			
+			socket.on('connect', function() {
+				console.log("Connected");
+			});
+
+			// Receive from any event
+			socket.on('chatmessage', function (data) {
+				console.log(data);
+				document.getElementById('messages').innerHTML = "" + data + "" + "<br>" + document.getElementById('messages').innerHTML;
+			});
+
+            socket.on('chatmessage', function (data) {
+				console.log(data);
+				document.getElementById('messages2').innerHTML = "" + data + "" + "<br>" + document.getElementById('messages2').innerHTML;
+			});
+			
+			var sendmessage = function(message) {
+				console.log("chatmessage: " + message);
+				socket.emit('chatmessage', message);
+			};
+
+            var sendmessage = function(messages2) {
+				console.log("chatmessage: " + messages2);
+				socket.emit('chatmessage', messages2);
+			};
+		</script>	
+	</head>
+ <body>
+ <h1>Please enter your birthday date<h1><br>
+ <input type="date" id="message" name="message">
+ <h1>Please enter your birth time<h1><br>
+ <input type="time" id="message2" name="message2" ><br><br>
+ <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message2').value);
+ sendmessage(document.getElementById('message').value);"><br><br>
+ <div id="messages" style="background-color:powderblue; font-family: "Lucida Console", "Courier New", monospace;">
+</div>
+ </body>
+</html>
