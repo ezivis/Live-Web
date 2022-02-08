@@ -1,5 +1,53 @@
 <html>
 	<head>
+		<style>
+			input[type=text] {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				box-sizing: border-box;
+				border: none;
+				border-bottom: 2px solid red;
+			  }
+			  input[type=submit] {
+				background-color: #4CAF50;
+				color: white;
+				padding: 12px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				float: left;
+			  }
+			  
+			  input[type=submit]:hover {
+				background-color: #45a049;
+			  }
+
+			  input[VALUE="Generate"] {
+				background-color: #bcdef0;
+				color: white;
+				padding: 12px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				float: left;
+			  }
+			  
+			  input[VALUE="Generate"]:hover {
+				background-color: #267db5;
+			  }
+
+
+			  input[NAME="WordBox"] {
+				width: 20%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				box-sizing: border-box;
+				border: none;
+				background-color: #267db5;
+				color: white;
+			  }
+			</style>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript">
 		
@@ -12,33 +60,89 @@
 			// Receive from any event
 			socket.on('chatmessage', function (data) {
 				console.log(data);
-				document.getElementById('messages').innerHTML = "" + data + "" + "<br>" + document.getElementById('messages').innerHTML;
-			});
-
-            socket.on('chatmessage', function (data) {
-				console.log(data);
-				document.getElementById('messages2').innerHTML = "" + data + "" + "<br>" + document.getElementById('messages2').innerHTML;
+				document.getElementById('messages').innerHTML = "" + document.getElementById('messages').innerHTML + ""  + data + "<br>";
 			});
 			
+
 			var sendmessage = function(message) {
 				console.log("chatmessage: " + message);
 				socket.emit('chatmessage', message);
 			};
 
-            var sendmessage = function(messages2) {
-				console.log("chatmessage: " + messages2);
-				socket.emit('chatmessage', messages2);
-			};
+
 		</script>	
 	</head>
  <body>
- <h1>Please enter your birthday date<h1><br>
- <input type="date" id="message" name="message">
- <h1>Please enter your birth time<h1><br>
- <input type="time" id="message2" name="message2" ><br><br>
- <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message2').value);
- sendmessage(document.getElementById('message').value);"><br><br>
- <div id="messages" style="background-color:powderblue; font-family: "Lucida Console", "Courier New", monospace;">
-</div>
- </body>
-</html>
+<H1>Cooperation Diary</H1>
+<H3>RULE:</H3>
+<p>Everyone clicks the generate button, which generates a word (or a sentence). Then write a paragraph containing the generated word (or a sentence), write it into the input field, and click submit, starting from the first person on the left. Let's see how we can write a fantasy diary. (If the text is repeated, please regenerate)
+</p>
+<FORM NAME="WordForm">  
+	<INPUT TYPE=TEXT NAME="WordBox" id="wordbox">
+		<br><INPUT TYPE=BUTTON VALUE="Generate" onClick="PickRandomWord(document.WordForm);" id="button">
+</FORM>
+
+<br><br><br><br><label for="fname">Your Paragraph</label>
+<input type="text" id="message" name="message" placeholder="Enter Here.." ><br>
+
+<input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+ 
+ <br><br><p><div id="messages" style="border: 10px solid green;">Live Web Diary:<br></div><br>
+
+</body>
+<script>
+	var NumberOfWords = 32
+
+var words = new BuildArray(NumberOfWords)
+
+// Use the following variables to 
+// define your random words:
+words[1] = "Upcycling Project"
+words[2] = "headline"
+words[3] = "Live Web"
+words[4] = "shoulder"
+words[5] = "suffering"
+words[6] = "exchange"
+words[7] = "trust"
+words[8] = "tune"
+words[9] = "far"
+words[10] = "scene"
+words[11] = "PCOMP"
+words[12] = "coco company"
+words[13] = "study"
+words[14] = "Mars"
+words[15] = "permanent"
+words[16] = "Yuanfang has a dog"
+words[17] = "Lifei wanna a dog"
+words[18] = "standard"
+words[19] = "analysis"
+words[20] = "ITP"
+words[21] = "pavement"
+words[22] = "humanity"
+words[23] = "awful"
+words[24] = "coma"
+words[25] = "impulse"
+words[26] = "crown"
+words[27] = "Disney"
+words[28] = "ITP ER"
+words[29] = "Wooden Mirror"
+words[30] = "Arduino"
+words[31] = "IMA"
+words[32] = "Fab Shop"
+
+function BuildArray(size){
+this.length = size
+for (var i = 1; i <= size; i++){
+this[i] = null}
+return this
+}
+
+function PickRandomWord(frm) {
+// Generate a random number between 1 and NumberOfWords
+var rnd = Math.ceil(Math.random() * NumberOfWords)
+
+// Display the word inside the text box
+frm.WordBox.value = words[rnd]
+}
+</script>
+</html>		
