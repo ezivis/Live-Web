@@ -24,7 +24,7 @@
 			  }
 
 			  input[VALUE="Generate"] {
-				background-color: #bcdef0;
+				background-color: #267db5;
 				color: white;
 				padding: 12px 20px;
 				border: none;
@@ -34,7 +34,7 @@
 			  }
 			  
 			  input[VALUE="Generate"]:hover {
-				background-color: #267db5;
+				background-color: #bcdef0;
 			  }
 
 
@@ -69,6 +69,13 @@
 				socket.emit('chatmessage', message);
 			};
 
+			function getInputValue(){
+				// Selecting the input element and get its value 
+				var inputVal = document.getElementById("message").value;
+				
+				// Displaying the value
+				document.getElementById("demo").innerHTML = "Your Paragraph Is:" + inputVal
+			}
 
 		</script>	
 	</head>
@@ -85,10 +92,11 @@
 <br><br><br><br><label for="fname">Your Paragraph</label>
 <input type="text" id="message" name="message" placeholder="Enter Here.." ><br>
 
-<input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+<input type="submit" value="submit" onclick="getInputValue();sendmessage(document.getElementById('message').value);">
  
- <br><br><p><div id="messages" style="border: 10px solid green;">Live Web Diary:<br></div><br>
+ <br><br><p><div id="messages"style="border: 10px solid green;"><H4>Live Web Diary:</H4><div id = "demo"></div><br></div><br>
 
+<div id = "demo"></div>
 </body>
 <script>
 	var NumberOfWords = 32
