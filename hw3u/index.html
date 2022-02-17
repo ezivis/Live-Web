@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Bá Hé Bǐ Sài</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #65dae3;
+      color: white;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 8vw;
+    }
+    
+    .line {
+      height: 16vw;
+      background-color: white;;
+      padding: 1px;
+      margin: 8vw;
+    }
+
+    #rope {
+      background-color: white;
+      padding: 20px;
+      display: block;
+      width: 10vw;
+      margin: 16vw;
+      left: 0;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #replay{
+      display: none;
+      position: absolute;
+      left: 40% ;
+      margin: auto;
+      background-color: transparent;
+      border: white 1px solid;
+      border-radius: 10px;
+      padding: 1vw 4vw;
+    }
+
+    #replay:hover{
+      color: #56bc8a;
+      background-color: white;
+    }
+
+    #message{
+      display: none;
+      background-color: transparent;
+    }
+
+    #player1 {
+    padding: 5vw 5vw;
+    border-radius: 15px 15px 15px 15px;
+    }
+
+    #player2 {
+    padding: 5vw 5vw;
+    border-radius: 15px 15px 15px 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1> Bá Hé Bǐ Sài</h1>
+  <h1 id="demo">WHO WILL WIN?</h1>
+  <main>
+
+    <!-- <input id="player1" type="button" name="player1" value="Team 1" onclick= "sendother();"> -->
+    <input style = "padding: 5vw 5vw; border-radius: 15px 15px 15px 15px;" type="button" value="TEAM 1" onclick="sendother();">
+
+    <div id="lh-line" class="line"></div>
+
+    <div id="rope"></div>
+    <input id = "replay" type="button" value="replay" onclick="sendreplay();">
+
+
+    <div id="rh-line" class="line"></div>
+
+    <!-- <input id="player2" type="submit" name="player2" value="Team 2"/> -->
+    <input style = "padding: 5vw 5vw; border-radius: 15px 15px 15px 15px;" type="button" value="TEAM 2" onclick="sendother2();">
+   </main>
+ <div id="mouse" style="position:absolute;"></div>
+ <input type="text" id="message" name="message">
+</body>
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+
+    let leftness = 0; 
+    let rope = document.getElementById("rope");
+    let winning = false;
+    let play1win = 0;
+    let play2win = 0;
+
+    var socket = io.connect();
+    
+    socket.on('connect', function() {
+        console.log("Connected");
+    });
+
+    // Receive from any event
+    socket.on('chatmessage', function (data) {
+        console.log(data);
+        document.getElementById('messages').innerHTML = "" + data + 
++ "" + document.getElementById('messages').innerHTML;
+    });
+    
+socket.on('otherevent', player1move);
+
+function player1move() {
+    leftness = leftness - 10;
+    rope.style.left = leftness + "px";
+    console.log(rope.offsetLeft);
+    
+    if(rope.offsetLeft< 0.320 * window.innerWidth){
+    document.getElementById("demo").innerHTML = "Cheer Up Team2, Team 1 now ahead!!!!!!";
+    }
+
+    if(rope.offsetLeft> 0.320 * window.innerWidth){
+    document.getElementById("demo").innerHTML = "WHO WILL WIN?";
+    }
+
+    if(rope.offsetLeft< 0.220 * window.innerWidth){
+    // alert("TEAM1 WIN!!!!!");
+    replay.style.display = "block";
+    document.getElementById("demo").innerHTML = "TEAM 1 WINNNNNNNNN!!!!!!!";
+    play1win ++;
+    }
+};
+
+socket.on('otherevent2', player2move);
+
+function player2move() {
+    leftness = leftness + 10;
+    rope.style.left = leftness + "px";
+    console.log(rope.offsetLeft);
+    if(rope.offsetLeft> 0.610 * window.innerWidth){
+    document.getElementById("demo").innerHTML = "Cheer Up Team2, Team 1 now ahead!!!!!!";
+    }
+    if(rope.offsetLeft< 0.610 * window.innerWidth){
+    document.getElementById("demo").innerHTML = "WHO WILL WIN?";
+    }
+    if(rope.offsetLeft> 0.710 * window.innerWidth){
+    // alert("TEAM2 WIN!!!!!");
+    replay.style.display = "block";
+    document.getElementById("demo").innerHTML = "TEAM 2 WINNNNNNNNN!!!!!!!";
+    play2win++;
+    }
+}
+
+socket.on('replaysend', replay1);
+   
+function replay1() {
+    rope.style.left = 0;
+    leftness = 0; 
+    replay.style.display = "none";
+    document.getElementById("demo").innerHTML = "WHO WILL WIN?";
+ }
+
+    var sendmessage = function(message) {
+        message = document.getElementById('message').value
+        console.log("chatmessage: " + message);
+        socket.emit('chatmessage', message);
+    };
+
+
+    var sendother = function() {
+      othermessage = document.getElementById('message').value;
+       console.log("sending::" + othermessage);
+       socket.emit('otherevent',othermessage);
+    };
+
+    var sendother2 = function() {
+      othermessage3 = document.getElementById('message').value;
+       console.log("sending2::" + othermessage3);
+       socket.emit('otherevent2',othermessage3);
+    };
+
+    var sendreplay = function() {
+      replaysendmessage = document.getElementById('message').value;
+       console.log("sending2::" + replaysendmessage);
+       socket.emit('replaysend',replaysendmessage);
+    };
+
+    window.addEventListener('load', function() {
+        console.log("Am I here?");
+        document.addEventListener('mousemove', function(evt) {
+                    //console.log(evt);
+        var mouseData = {
+            x: evt.clientX,
+            y: evt.clientY
+        }
+
+        socket.emit('mouse', mouseData);
+
+        });
+            });
+
+     socket.on('mouse', function(data) {
+        console.log(data);
+        document.getElementById(data.socketid).style.top = data.y + "px";
+        document.getElementById(data.socketid).style.left = data.x +10+ "px";
+            });
+
+    socket.on("newuser", function(socketid) {
+        var n = document.createElement("div");
+        n.id = socketid;
+        n.style.position = "absolute";
+        n.innerHTML = socketid;
+        document.body.appendChild(n);
+            });
+
+</script>
+
+<!-- <script>
+    let leftness = 0; 
+    let rope = document.getElementById("rope");
+    let replay = document.getElementById("replay");
+    let winning = false;
+    let play1win = 0;
+    let play2win = 0;
+
+
+
+document.getElementById('player1').onclick = player1move;
+
+function player1move() {
+    leftness = leftness - 10;
+    rope.style.left = leftness + "px";
+    console.log(rope.offsetLeft);
+    if(rope.offsetLeft< 0.220 * window.innerWidth){
+    alert("hello");
+    replay.style.display = "block";
+    play1win ++;
+    }
+};
+
+document.getElementById('player2').onclick = player2move;
+
+function player2move() {
+    leftness = leftness + 10;
+    rope.style.left = leftness + "px";
+    console.log(rope.offsetLeft);
+    if(rope.offsetLeft> 0.710 * window.innerWidth){
+    alert("hello");
+    replay.style.display = "block";
+    play2win++;
+    }
+}
+
+
+document.getElementById('replay').onclick = function() {
+    document.getElementById("rope").style.left = 0;
+    leftness = 0;
+    replay.style.display = "none";
+}
+
+if(xxx== true){
+    console.log("aaaaaaaaaaaaaa");
+}
+
+
+</script> -->
+</html>
