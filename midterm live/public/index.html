@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script type="text/javascript" src="https://p5livemedia.itp.io/simplepeer.min.js"></script>
+    <script type="text/javascript" src="https://p5livemedia.itp.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://p5livemedia.itp.io/p5livemedia.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  </head>
+
+  <body>
+  <h1 id = "count">15</h1>
+
+  <div class = 'center'>
+    <a href="/result"><button id="submit">See Result</button></a>
+  </div>
+
+<video id="thevideo"></video>
+
+    <div id="sketch-holder">
+      <!-- Our sketch will go here! -->
+    </div>
+
+    <script src="sketch.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
