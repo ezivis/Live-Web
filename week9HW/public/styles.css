@@ -1,0 +1,82 @@
+.center{
+    display: block; 
+    margin: auto;
+}
+
+
+
+#backvid{
+    position: absolute;
+    width: 1280px;
+    height: 800px;
+    left: 80px;
+    top: 112px;
+}
+
+#myvideo{
+    position: absolute;
+    width: 82px;
+    height: 86px;
+    left: 317px;
+    top: 571px;
+    
+}
+
+#my-vid{
+    position: absolute;
+    width: 355px;
+    height: 215px;
+    left: 543px;
+    top: 512px;
+    
+}
+
+#peer-vid{
+    position: absolute;
+    width: 82px;
+    height: 86px;
+    left: 436px;
+    top: 571px;
+    
+}
+
+.peer2{
+    position: absolute;
+    width: 82px;
+    height: 86px;
+    left: 436px;
+    top: 571px;    
+}
+
+#myvideorbutton{
+
+    position: absolute;
+    width: 82px;
+    height: 28px;
+    left: 317px;
+    top: 681px; 
+}
+
+.peerbutton{
+    position: absolute;
+    width: 82px;
+    height: 28px;
+    left: 436px;
+    top: 681px;
+}
+
+.peer3{
+    position: absolute;
+    width: 82px;
+    height: 76px;
+    left: 932px;
+    top: 571px;  
+}
+
+.peer4{
+    position: absolute;
+    width: 82px;
+    height: 76px;
+    left: 1052px;
+    top: 571px; 
+}
